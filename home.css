@@ -1,0 +1,93 @@
+/* ================= Base ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  overflow: hidden;
+  height: 100vh;
+  background: linear-gradient(180deg, #a0d8ff, #ffffff);
+  color: #0d1b2a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+canvas#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* ================= Top Buttons Container ================= */
+.top-buttons {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 30px;
+  z-index: 10;
+}
+
+/* ================= Buttons ================= */
+.top-button {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width: 180px;
+  height: 60px;
+  font-size: 22px;
+  font-weight:700;
+  border-radius:15px;
+  color:white;
+  cursor:pointer;
+  text-decoration:none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.smp {
+  background: linear-gradient(90deg, #a7aa02, #eff403, #f7f981, #d4d602, #eff403);
+  background-size:300%;
+  animation: gradientMove 3s infinite linear;
+  box-shadow:0 6px 20px white;
+}
+
+.discord {
+  background: linear-gradient(90deg, #b388ff, #7b2fff, #b388ff);
+  background-size:300%;
+  animation: gradientMove 3s infinite linear;
+  box-shadow:0 6px 20px white;
+}
+
+.info-card {
+  background: linear-gradient(90deg, #6ec1ff, #1a73ff);
+  box-shadow:0 6px 20px white;
+}
+
+.top-button:hover {
+  transform: scale(1.08);
+  box-shadow:0 8px 25px rgba(0,0,0,0.4);
+}
+
+@keyframes gradientMove {
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
+
+/* ================= Footer ================= */
+.footer {
+  position: absolute;
+  bottom: 30px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #008cff;
+  text-shadow: 0 0 15px rgba(0,140,255,0.3);
+}

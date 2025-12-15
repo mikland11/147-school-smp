@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>147 school smp Shop</title>
+    <link rel="icon" type="image/png" href="logo.png"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(180deg, #a0d8ff, #ffffff);
+        }
+
+        canvas#bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .top-buttons {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .fancy-btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(90deg, #b388ff, #7b2fff, #b388ff);
+            background-size: 300%;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px white;
+            animation: gradientMove 3s infinite linear;
+            transition: transform 0.2s;
+        }
+
+        .fancy-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .card {
+            background: gray;
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 950px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 5;
+            position: relative;
+        }
+
+        .card h2 { font-size: 28px; }
+        .card p { font-size: 16px; }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 სვეტი */
+            gap: 20px;
+            width: 100%;
+            justify-items: center;
+            margin-top: 20px;
+        }
+
+        .shop-item {
+            width: 420px;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0); /* White gradient background */
+            color: #0d1b2a;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .shop-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        @keyframes gradientMove {
+            0% {background-position: 0%;}
+            100% {background-position: 100%;}
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 1000px) {
+            .card { width: 90%; }
+            .shop-item { width: 90%; }
+            .shop-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg"></canvas>
+
+    <div class="top-buttons">
+        <button class="fancy-btn" onclick="location.href='https://discord.gg/aBFBq3KqFb'">Discord</button>
+        <button class="fancy-btn" onclick="location.href='home.html'">Home</button>
+    </div>
+
+    <div class="card">
+        <h2>Shop</h2>
+        <p>აირჩიეთ პროდუქტი:</p>
+
+        <div class="shop-grid">
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+            <div class="shop-item">SOON</div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Cloud {
+            constructor(x,y,scale,speed){this.x=x;this.y=y;this.scale=scale;this.speed=speed;}
+            draw(){ctx.fillStyle='rgba(255,255,255,0.8)';ctx.beginPath();
+                ctx.arc(this.x,this.y,20*this.scale,0,Math.PI*2);
+                ctx.arc(this.x+25*this.scale,this.y+10*this.scale,25*this.scale,0,Math.PI*2);
+                ctx.arc(this.x-25*this.scale,this.y+10*this.scale,25*this.scale,0,Math.PI*2);
+                ctx.fill();
+            }
+            update(){this.x+=this.speed;if(this.x-50*this.scale>canvas.width)this.x=-50*this.scale;this.draw();}
+        }
+
+        const clouds=[];
+        for(let i=0;i<15;i++){
+            clouds.push(new Cloud(Math.random()*canvas.width,Math.random()*canvas.height*0.6,Math.random()*1+0.5,Math.random()*0.5+0.2));
+        }
+
+        function animate(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            for(let c of clouds)c.update();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+        window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+    </script>
+</body>
+</html>
